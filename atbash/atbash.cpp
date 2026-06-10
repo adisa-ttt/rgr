@@ -1,8 +1,8 @@
-#include "Atbash.h"
+#include "atbash.h"
 
 extern "C" const AlgorithmInfo* get_algorithm_info(){
     static AlgorithmInfo info = {
-        "Atbash",
+        "atbash",
         0
     };
     return &info;
