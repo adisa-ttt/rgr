@@ -62,7 +62,7 @@ vector<uint8_t> read_key_from_stdin(){
     if (key.empty()) throw runtime_error("Поток ввода пуст или произошла ошибка чтения");
 
     #ifdef _WIN32
-        setmode(_fileno(stdin), _O_TEXT);
+        _setmode(_fileno(stdin), _O_TEXT);
     #endif
 
     return key;

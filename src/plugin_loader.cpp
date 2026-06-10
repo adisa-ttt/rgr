@@ -1,8 +1,4 @@
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE 
-#endif
-
-#include <plugin_loader.h>
+#include "plugin_loader.h"
 #include <string>
 #include <stdexcept>
 
