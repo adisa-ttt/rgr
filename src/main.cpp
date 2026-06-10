@@ -74,9 +74,14 @@ int main(int argc, char* argv[]){
 
     try{
         void* handle = plugin_loader::load_plugin(algo);
-        auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, "get_info");
+        auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, "get_algorithm_info");
         const AlgorithmInfo* info = get_info();
-        cout << "Загружен алгоритм: " << info->algorithm_name << ", его размер ключа: " << info->key_size << endl;
+
+        if (info && info->algorithm_name) {
+            cout << "Загружен алгоритм: " << info->algorithm_name << ", его размер ключа: " << info->key_size << endl;
+        } else {
+            cout << "Загружен алгоритм: " << algo << " (информация недоступна)" << endl;
+        }
 
         plugin_loader::unload_plugin(handle);
     }catch(const exception& mistake){
