@@ -7,7 +7,7 @@
 namespace io_manager{
 
     std::vector<uint8_t> read_binary_data(const std::string& path);
-    void write_binary_data(const std::string& path, std::vector<uint8_t>& data);
+    void write_binary_data(const std::string& path, const std::vector<uint8_t>& data);
 }
 
 #endif
