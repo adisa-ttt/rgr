@@ -1,3 +1,4 @@
+
 cmake_minimum_required(VERSION 3.10)
 project(SilentCipher VERSION 1.0.0 LANGUAGES CXX)
 
@@ -13,4 +14,3 @@ endif()
 add_subdirectory(src)
 add_subdirectory(libs)
 add_subdirectory(test)
-
