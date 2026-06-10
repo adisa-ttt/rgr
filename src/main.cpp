@@ -1,5 +1,7 @@
-#include "cryptoInterface.h"
+#include "crypto_interface.h"
 #include "plugin_loader.h"
+#include "key_manager.h"
+#include "io_manager.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -59,7 +61,7 @@ int main(int argc, char* argv[]){
     #ifdef _WIN32
         SetConsoleOutputCP(CP_UTF8);
         SetConsoleCP(CP_UTF8);
-    #endif;
+    #endif
 
     string algo, mode, key_path, input_path, output_path;
     bool gen_key = false;
@@ -78,24 +80,29 @@ int main(int argc, char* argv[]){
 
     try{
         void* handle = plugin_loader::load_plugin(algo);
-        auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, "get_algorithm_info")
+        auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, "get_algorithm_info"); 
         const AlgorithmInfo* info = get_info();
         
         cout << "Загружен алгоритм: " << info->algorithm_name << ", его размер ключа: " << info->key_size << endl;
 
         vector<uint8_t> key;
-
         if(gen_key){
             key = key_manager::generate_secure_key(info->key_size);
             cout << "Ключ сгенерирован." << endl;}
-        else if (!key_path.empty()){
-            key = key_manager::read_key_from_file(key_path);}
-        else {
-            cout << "Введите ключ: ";
-            key = key_manager::read_key_from_stdin();
+            
+            if(save_key){
+                string save_path = output_path.empty() ? "-" :output_path;
+                io_manager::write_binary_data(save_path, key);
+            }
+        else{
+            string actual_key_path = key_path.empty() ? "-" : key_path;
+            key = io_manager::read_binary_data(actual_key_path);
+            cout << "Ключ прочитан." << endl;
         }
 
-    } catch(const exception& mistake){
+        secure_memory(key.data(), key.size());
+        plugin_loader::unload_plugin(handle);
+        } catch(const exception& mistake){
         cerr << "Ошибка: " << mistake.what() << endl;
         return 1;
     }
