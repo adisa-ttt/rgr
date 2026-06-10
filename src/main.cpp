@@ -12,6 +12,7 @@ using namespace std;
 #endif
 
 void print_help(){
+
     cout << "           Справочная сводка по SilentChipher\n" 
         << "Флаги:\n" 
         << "    -a, --algorithm <название_алгоритма>   Выбор алгоритма для шифрования: Gronfeld; Skytale; Atbash; RSA; Caesar; Vigenere.\n" 
@@ -25,29 +26,32 @@ void print_help(){
 }
 
 bool parse_args(int argc, char* argv[], string& algo, string& mode, string& key_path, string& input_path, string& output_path, bool& gen_key, bool& save_key){
-        for(int i = 1; i < argc; ++i){
-            string arg = argv[i];
-            if(arg == "-h" || arg == "--help") {mode = "help"; return true;}
-            else if(arg == "-a" || arg == "--algorithm") {if(i+1 < argc) algo = argv[++i]; else return false;}
-            else if (arg == "-m" || arg == "--mode") {if(i+1 < argc) mode = argv[++i]; else return false;}
-            else if(arg == "-k" || arg == "--key") {if(i+1 < argc) key_path = argv[++i]; else return false;}
-            else if(arg == "-i" || arg == "--input") {if(i+1 < argc) input_path = argv[++i]; else return false;}
-            else if(arg == "-o" || arg == "--output") {if(i+1 < argc) output_path = argv[++i]; else return false;}
-            else if(arg == "--generate-key") {gen_key = true;}
-            else if(arg == "--save-key") {save_key = true;}
-            else {return false;}
-        }
-        return true;
+        
+    for(int i = 1; i < argc; ++i){
+        string arg = argv[i];
+        if(arg == "-h" || arg == "--help") {mode = "help"; return true;}
+        else if(arg == "-a" || arg == "--algorithm") {if(i+1 < argc) algo = argv[++i]; else return false;}
+        else if (arg == "-m" || arg == "--mode") {if(i+1 < argc) mode = argv[++i]; else return false;}
+        else if(arg == "-k" || arg == "--key") {if(i+1 < argc) key_path = argv[++i]; else return false;}
+        else if(arg == "-i" || arg == "--input") {if(i+1 < argc) input_path = argv[++i]; else return false;}
+        else if(arg == "-o" || arg == "--output") {if(i+1 < argc) output_path = argv[++i]; else return false;}
+        else if(arg == "--generate-key") {gen_key = true;}
+        else if(arg == "--save-key") {save_key = true;}
+        else {return false;}
+    }
+
+    return true;
 }
 
 void secure_memory(void* ptr, size_t size) {
+
     if (!ptr || size == 0) return;
+
 #ifdef _WIN32
     SecureZeroMemory(ptr, size);
 #else
     explicit_bzero(ptr, size);
 #endif
-    free(ptr);
 }
 
 int main(int argc, char* argv[]){
@@ -62,7 +66,7 @@ int main(int argc, char* argv[]){
     bool save_key = false;
 
     if (!parse_args(argc, argv, algo, mode, key_path, input_path, output_path, gen_key, save_key)) {
-        std::cerr << "Ошибка: некорректные аргументы командной строки.\n";
+        cerr << "Ошибка: некорректные аргументы командной строки.\n";
         print_help();
         return 1;
     }
@@ -74,13 +78,25 @@ int main(int argc, char* argv[]){
 
     try{
         void* handle = plugin_loader::load_plugin(algo);
-        auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, )
+        auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, "get_algorithm_info")
         const AlgorithmInfo* info = get_info();
+        
         cout << "Загружен алгоритм: " << info->algorithm_name << ", его размер ключа: " << info->key_size << endl;
 
-        plugin_loader::unload_plugin(handle);
-    }catch(const exception& mistake){
-        cerr << "Ошибка: " << mistake.what << endl;
+        vector<uint8_t> key;
+
+        if(gen_key){
+            key = key_manager::generate_secure_key(info->key_size);
+            cout << "Ключ сгенерирован." << endl;}
+        else if (!key_path.empty()){
+            key = key_manager::read_key_from_file(key_path);}
+        else {
+            cout << "Введите ключ: ";
+            key = key_manager::read_key_from_stdin();
+        }
+
+    } catch(const exception& mistake){
+        cerr << "Ошибка: " << mistake.what() << endl;
         return 1;
     }
     
