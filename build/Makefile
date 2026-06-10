@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/adiss/rgr
+CMAKE_SOURCE_DIR = /home/diana/rgr
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/adiss/rgr/build
+CMAKE_BINARY_DIR = /home/diana/rgr/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles /home/adiss/rgr/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/diana/rgr/build/CMakeFiles /home/diana/rgr/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/diana/rgr/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,6 +129,32 @@ SilentChipher/fast:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/SilentChipher.dir/build.make src/CMakeFiles/SilentChipher.dir/build
 .PHONY : SilentChipher/fast
 
+#=============================================================================
+# Target rules for targets named gronsfeld
+
+# Build rule for target.
+gronsfeld: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gronsfeld
+.PHONY : gronsfeld
+
+# fast build rule for target.
+gronsfeld/fast:
+	$(MAKE) $(MAKESILENT) -f libs/gronsfeld/CMakeFiles/gronsfeld.dir/build.make libs/gronsfeld/CMakeFiles/gronsfeld.dir/build
+.PHONY : gronsfeld/fast
+
+#=============================================================================
+# Target rules for targets named scytale
+
+# Build rule for target.
+scytale: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scytale
+.PHONY : scytale
+
+# fast build rule for target.
+scytale/fast:
+	$(MAKE) $(MAKESILENT) -f libs/scytale/CMakeFiles/scytale.dir/build.make libs/scytale/CMakeFiles/scytale.dir/build
+.PHONY : scytale/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -138,6 +164,8 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... SilentChipher"
+	@echo "... gronsfeld"
+	@echo "... scytale"
 .PHONY : help
 
 

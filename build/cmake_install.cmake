@@ -1,4 +1,4 @@
-# Install script for directory: /home/adiss/rgr
+# Install script for directory: /home/diana/rgr
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,9 +44,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/adiss/rgr/build/src/cmake_install.cmake")
-  include("/home/adiss/rgr/build/libs/cmake_install.cmake")
-  include("/home/adiss/rgr/build/test/cmake_install.cmake")
+  include("/home/diana/rgr/build/src/cmake_install.cmake")
+  include("/home/diana/rgr/build/libs/cmake_install.cmake")
+  include("/home/diana/rgr/build/test/cmake_install.cmake")
 
 endif()
 
@@ -58,5 +58,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/adiss/rgr/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/diana/rgr/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

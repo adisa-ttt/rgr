@@ -1,9 +1,9 @@
-#include "cryptoInterface.h"
+#include "crypto_interface.h"
+#include <dlfcn.h>
 #include "plugin_loader.h"
 #include <iostream>
 #include <string>
 #include <vector>
-#include <dlfcn.h> 
 #include <cstring>
 using namespace std;
 
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]){
     #ifdef _WIN32
         SetConsoleOutputCP(CP_UTF8);
         SetConsoleCP(CP_UTF8);
-    #endif;
+    #endif
 
     string algo, mode, key_path, input_path, output_path;
     bool gen_key = false;
@@ -74,13 +74,13 @@ int main(int argc, char* argv[]){
 
     try{
         void* handle = plugin_loader::load_plugin(algo);
-        auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, )
+        auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, "get_info");
         const AlgorithmInfo* info = get_info();
         cout << "Загружен алгоритм: " << info->algorithm_name << ", его размер ключа: " << info->key_size << endl;
 
         plugin_loader::unload_plugin(handle);
     }catch(const exception& mistake){
-        cerr << "Ошибка: " << mistake.what << endl;
+        cerr << "Ошибка: " << mistake.what() << endl;
         return 1;
     }
     

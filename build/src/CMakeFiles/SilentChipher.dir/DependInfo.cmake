@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/adiss/rgr/src/main.cpp" "src/CMakeFiles/SilentChipher.dir/main.cpp.o" "gcc" "src/CMakeFiles/SilentChipher.dir/main.cpp.o.d"
-  "/home/adiss/rgr/src/plugin_loader.cpp" "src/CMakeFiles/SilentChipher.dir/plugin_loader.cpp.o" "gcc" "src/CMakeFiles/SilentChipher.dir/plugin_loader.cpp.o.d"
+  "/home/diana/rgr/src/main.cpp" "src/CMakeFiles/SilentChipher.dir/main.cpp.o" "gcc" "src/CMakeFiles/SilentChipher.dir/main.cpp.o.d"
+  "/home/diana/rgr/src/plugin_loader.cpp" "src/CMakeFiles/SilentChipher.dir/plugin_loader.cpp.o" "gcc" "src/CMakeFiles/SilentChipher.dir/plugin_loader.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

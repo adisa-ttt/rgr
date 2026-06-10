@@ -1,4 +1,4 @@
-#include "../include/cryptoInterface.h"
+#include "../include/crypto_interface.h"
 #include <cctype>
 
 extern "C" {

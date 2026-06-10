@@ -1,4 +1,4 @@
-# Install script for directory: /home/adiss/rgr/libs
+# Install script for directory: /home/diana/rgr/libs
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,12 @@ endif()
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "/usr/bin/objdump")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  include("/home/diana/rgr/build/libs/gronsfeld/cmake_install.cmake")
+  include("/home/diana/rgr/build/libs/scytale/cmake_install.cmake")
+
 endif()
 

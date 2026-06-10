@@ -1,4 +1,4 @@
-# Install script for directory: /home/adiss/rgr/test
+# Install script for directory: /home/diana/rgr/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

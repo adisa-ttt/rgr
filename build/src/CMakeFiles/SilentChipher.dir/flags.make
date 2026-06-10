@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/adiss/rgr/include -I/home/adiss/rgr/src
+CXX_INCLUDES = -I/home/diana/rgr/include -I/home/diana/rgr/src
 
 CXX_FLAGS = -std=gnu++17 -Wall -Wextra -Wpedantic -Werror
 
