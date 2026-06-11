@@ -1,4 +1,5 @@
 #include "rsa.h"
+#include <random>
 
 static void clear_buffer(void* ptr, size_t size) {
     volatile uint8_t* p = reinterpret_cast<volatile uint8_t*>(ptr);
@@ -84,7 +85,11 @@ extern "C" size_t get_output_size(size_t input_size, int operation_type){
 }
 
 extern "C" int encrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
+    if (!key.data || !input.data || !output) return 1;
+
     MutBuffer& out = *output;
+    if (!out.data) return 1;
+
     size_t need_size = get_output_size (input.size, 0);
     if (out.size < need_size || key.size < 16) return 1;
 
@@ -112,12 +117,19 @@ extern "C" int encrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
 
         clear_buffer(block, 8);
     }
+    clear_buffer(&n, sizeof(n));
+    clear_buffer(&e, sizeof(e));
+
     out.size = need_size;
     return 0;
 }
 
 extern "C" int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
+    if (!key.data || !input.data || !output) return 1;
+
     MutBuffer& out = *output;
+    if (!out.data) return 1;
+
     if (input.size % 8 != 0|| key.size < 16) return 1;
     if (out.size < input.size) return 2;
 
@@ -132,6 +144,10 @@ extern "C" int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
         uint64_t m = power_modulo(c, d, n);
         u64_to_bytes(out.data + i * 8, m);
     }
+
+    clear_buffer(&n, sizeof(n));
+    clear_buffer(&d, sizeof(d));
+
     uint8_t pad_len = out.data[input.size - 1];
     if (pad_len > 0 && pad_len <= 8){
         bool valid = true;
@@ -153,4 +169,46 @@ extern "C" int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
         return 5;
     }
     return 0;
+}
+extern "C" int generate_key(MutBuffer* public_key, MutBuffer* private_key) {
+    if (!public_key || !private_key) return 1;
+
+    MutBuffer& pub = *public_key;
+    MutBuffer& priv = *private_key;
+
+    if (!pub.data || !priv.data || pub.size < 16 || priv.size < 16) return 1;
+
+    std::random_device rd;
+
+    uint64_t p = rd() % 20000 + 10000;
+    while (!is_prime(p)) p = rd() % 20000 + 10000;
+
+    uint64_t q = rd() % 20000 + 10000;
+    while (!is_prime(q) || q == p) q = rd() % 20000 + 10000;
+
+    uint64_t n = p * q;
+    uint64_t phi = (p - 1) * (q - 1);
+
+    uint64_t e = 3;
+    while (e < phi) {
+        if (nod(e, phi) == 1) break;
+        e += 2;
+    }
+
+    uint64_t d = evklid_inverse(e, phi);
+
+    u64_to_bytes(pub.data, n);
+    u64_to_bytes(pub.data + 8, e);
+
+    u64_to_bytes(priv.data, n);
+    u64_to_bytes(priv.data + 8, d);
+
+    clear_buffer(&p, sizeof(p));
+    clear_buffer(&q, sizeof(q));
+    clear_buffer(&phi, sizeof(phi));
+
+    pub.size = 16;
+    priv.size = 16;
+
+    return 0; 
 }
