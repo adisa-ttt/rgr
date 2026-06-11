@@ -24,3 +24,7 @@ extern "C" int encrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
 extern "C" int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
     return encrypt(key, input, output);
 }
+
+extern "C" int generate_key(MutBuffer* key) {
+    return 0;
+}
