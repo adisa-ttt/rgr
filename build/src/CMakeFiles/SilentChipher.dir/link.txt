@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/SilentChipher.dir/main.cpp.o CMakeFiles/SilentChipher.dir/plugin_loader.cpp.o -o SilentChipher  -ldl 

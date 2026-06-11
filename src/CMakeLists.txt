@@ -19,3 +19,7 @@ if(MSVC)
 else()
     target_compile_options(SilentChipher PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()
+# Встраиваем путь к папке сборки, чтобы программа сама находила .so библиотеки
+set_target_properties(SilentChipher PROPERTIES
+    BUILD_RPATH "${CMAKE_BINARY_DIR}"
+)
