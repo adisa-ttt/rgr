@@ -79,19 +79,52 @@ int main(int argc, char* argv[]){
     }
 
     try{
-        vector<string> supported_algos = {"caesar", "vigenere", "atbash", "rsa", "skytale", "gronsfeld"};
+        vector<string> supported_algos = {"caesar", "vigenere", "atbash", "rsa", "Skytale", "Gronsfeld"};
         bool is_supported = false;
         for (const auto& a : supported_algos) {
             if (a == algo) { 
                 is_supported = true; 
                 break; }
         }
-        if (!is_supported) throw runtime_error("Неподдерживаемый алгоритм: " + algo + ". Доступные: skytale, gronsfeld, atbash, rsa, caesar, vigenere");
+        if (!is_supported) throw runtime_error("Неподдерживаемый алгоритм: " + algo + ". Доступные: Skytale, Gronsfeld, atbash, rsa, caesar, vigenere.");
 
         void* handle = plugin_loader::load_plugin(algo);
-        auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, "get_algorithm_info"); 
+        auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, "get_algorithm_info");
         const AlgorithmInfo* info = get_info();
+
+        if (!info) {
+            cerr << algo << "' не вернула информацию" << endl;
+            plugin_loader::unload_plugin(handle);
+            return 1;
+        }
+
+
+        cout << "Загружен алгоритм: " << info->algorithm_name << ", его размер ключа: " << info->key_size << endl;
         
+        if (!handle) {
+            cerr << "Ошибка: не удалось загрузить библиотеку '" << algo << "'" << endl;
+            return 1;
+        }
+
+        if (!get_info) {
+            cerr << "Ошибка: функция get_algorithm_info не найдена в библиотеке" << endl;
+            plugin_loader::unload_plugin(handle);
+            return 1;
+        }
+
+        if (!info) {
+            cerr << "Ошибка: get_algorithm_info вернула nullptr" << endl;
+            plugin_loader::unload_plugin(handle);
+            return 1;
+        }
+
+        if (!info->algorithm_name) {
+            cerr << "Ошибка: algorithm_name не инициализирован в библиотеке" << endl;
+            plugin_loader::unload_plugin(handle);
+            return 1;
+        }
+
+
         cout << "Загружен алгоритм: " << info->algorithm_name << ", его размер ключа: " << info->key_size << endl;
 
         vector<uint8_t> key;
