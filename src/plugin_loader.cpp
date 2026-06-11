@@ -19,7 +19,7 @@ namespace plugin_loader{
             }
             return reinterpret_cast<void*>(handle);
         #else
-            string lib_name = algorithm_name + ".so";
+            string lib_name = "lib" + algorithm_name + ".so";
             void* handle = dlopen(lib_name.c_str(), RTLD_NOW);
             if(!handle){
                 string error_message = dlerror() ? dlerror() : "";

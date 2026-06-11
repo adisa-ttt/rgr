@@ -17,7 +17,7 @@ void print_help(){
 
     cout << "           Справочная сводка по SilentChipher\n" 
         << "Флаги:\n" 
-        << "    -a, --algorithm <название_алгоритма>   Выбор алгоритма для шифрования: Gronfeld; Skytale; Atbash; RSA; Caesar; Vigenere.\n" 
+        << "    -a, --algorithm <название_алгоритма>   Выбор алгоритма для шифрования: skytale, gronsfeld, atbash, rsa, caesar, vigenere.\n" 
         << "    -m, --mode <режим_программы>           Выбор режима программы: encrypt; descrypt; generate-key.\n" 
         << "    -k, --key <название_файла>             Ввод пути к файлу ключа\n"
         << "    -i, --input <название_файла>           Ввыбор файла для шифрования, или '-' для ввода с консоли\n"
@@ -79,6 +79,15 @@ int main(int argc, char* argv[]){
     }
 
     try{
+        vector<string> supported_algos = {"caesar", "vigenere", "atbash", "rsa", "skytale", "gronsfeld"};
+        bool is_supported = false;
+        for (const auto& a : supported_algos) {
+            if (a == algo) { 
+                is_supported = true; 
+                break; }
+        }
+        if (!is_supported) throw runtime_error("Неподдерживаемый алгоритм: " + algo + ". Доступные: skytale, gronsfeld, atbash, rsa, caesar, vigenere");
+
         void* handle = plugin_loader::load_plugin(algo);
         auto get_info = plugin_loader::get_symbol<const AlgorithmInfo*(*)()>(handle, "get_algorithm_info"); 
         const AlgorithmInfo* info = get_info();
@@ -106,6 +115,8 @@ int main(int argc, char* argv[]){
         }
 
         if (mode == "encrypt" || mode == "decrypt"){
+            if (input_path.empty()) throw runtime_error("Не указан входной файл для режима " + mode);
+        
             vector<uint8_t> input_data = io_manager::read_binary_data(input_path);
             vector<uint8_t> output_data;
 
