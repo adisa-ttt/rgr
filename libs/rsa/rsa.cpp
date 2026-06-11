@@ -55,6 +55,7 @@ static uint64_t mul_mod(uint64_t a, uint64_t b, uint64_t mod) {
     return result;
 }
 
+
 static uint64_t power_modulo (uint64_t base, uint64_t power, uint64_t mod){
     uint64_t result = 1;
     base %= mod;

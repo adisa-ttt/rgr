@@ -20,6 +20,7 @@ vector<uint8_t> encrypt(void* handle, const std::vector<uint8_t>& key, const std
 
     int result = enc(key_buf, in_buf, &out_buf);
     if(result != 0) throw runtime_error("Ошибка шифрования. Код: " + std::to_string(result));
+    output.resize(out_buf.size); 
     return output;
 }
 
@@ -36,6 +37,7 @@ vector<uint8_t> decrypt(void* handle, const std::vector<uint8_t>& key, const std
 
     int result = dec(key_buf, in_buf, &out_buf);
     if(result != 0) throw runtime_error("Ошибка расшифрования. Код: " + std::to_string(result));
+    output.resize(out_buf.size); 
     return output;
 }
 
