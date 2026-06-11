@@ -42,16 +42,27 @@ static uint64_t evklid_inverse (uint64_t e, uint64_t phi){
     return (uint64_t)u;
 }
 
-
+static uint64_t mul_mod(uint64_t a, uint64_t b, uint64_t mod) {
+    uint64_t result = 0;
+    a %= mod;
+    while (b > 0) {
+        if (b & 1) {
+            result = (result + a) % mod;
+        }
+        a = (a + a) % mod;
+        b >>= 1;
+    }
+    return result;
+}
 
 static uint64_t power_modulo (uint64_t base, uint64_t power, uint64_t mod){
     uint64_t result = 1;
     base %= mod;
     while (power > 0){
         if (power % 2 == 1){
-            result = ((unsigned __int128)result * base) % mod;
+            result = mul_mod(result, base, mod);
         }
-        base = ((unsigned __int128)base*base) % mod;
+        base = mul_mod(base, base, mod);
         power /= 2;
     }
     return result;
@@ -73,12 +84,12 @@ static void u64_to_bytes(uint8_t* data, uint64_t value) {
 }
 
 extern "C" const AlgorithmInfo* get_algorithm_info(){
-    static AlgorithmInfo info ={"RSA-64",16};
+    static AlgorithmInfo info ={"RSA-64",32};
     return &info;
 }
 
 extern "C" size_t get_output_size(size_t input_size, int operation_type){
-    if (operation_type == 0){
+    if (operation_type == 1){
         return ((input_size/8) + 1) * 8;
     }
     return input_size;
@@ -91,7 +102,7 @@ extern "C" int encrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
     if (!out.data) return 1;
 
     size_t need_size = get_output_size (input.size, 0);
-    if (out.size < need_size || key.size < 16) return 1;
+    if (out.size < need_size || key.size < 32) return 1;
 
     uint64_t n = bytes_to_u64 (key.data);
     uint64_t e = bytes_to_u64 (key.data + 8);
@@ -130,11 +141,11 @@ extern "C" int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
     MutBuffer& out = *output;
     if (!out.data) return 1;
 
-    if (input.size % 8 != 0|| key.size < 16) return 1;
+    if (input.size % 8 != 0 || key.size < 32) return 1;
     if (out.size < input.size) return 2;
 
-    uint64_t n = bytes_to_u64(key.data);
-    uint64_t d = bytes_to_u64(key.data + 8);
+    uint64_t n = bytes_to_u64(key.data + 16);
+    uint64_t d = bytes_to_u64(key.data + 24);
     if (n == 0 || d == 0) return 3;
 
     size_t blocks = input.size / 8;
@@ -170,13 +181,12 @@ extern "C" int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
     }
     return 0;
 }
-extern "C" int generate_key(MutBuffer* public_key, MutBuffer* private_key) {
-    if (!public_key || !private_key) return 1;
+extern "C" int generate_key(MutBuffer* key) {
+    if (!key || !key->data) return 1;
 
-    MutBuffer& pub = *public_key;
-    MutBuffer& priv = *private_key;
+    MutBuffer& out = *key;
 
-    if (!pub.data || !priv.data || pub.size < 16 || priv.size < 16) return 1;
+    if (!out.data || out.size < 32) return 1;
 
     std::random_device rd;
 
@@ -197,18 +207,16 @@ extern "C" int generate_key(MutBuffer* public_key, MutBuffer* private_key) {
 
     uint64_t d = evklid_inverse(e, phi);
 
-    u64_to_bytes(pub.data, n);
-    u64_to_bytes(pub.data + 8, e);
-
-    u64_to_bytes(priv.data, n);
-    u64_to_bytes(priv.data + 8, d);
+    u64_to_bytes(out.data, n);
+    u64_to_bytes(out.data + 8, e);
+    u64_to_bytes(out.data + 16, n);
+    u64_to_bytes(out.data + 24, d);
 
     clear_buffer(&p, sizeof(p));
     clear_buffer(&q, sizeof(q));
     clear_buffer(&phi, sizeof(phi));
 
-    pub.size = 16;
-    priv.size = 16;
+    out.size = 32;
 
     return 0; 
 }

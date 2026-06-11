@@ -9,10 +9,12 @@ extern "C" const AlgorithmInfo* get_algorithm_info(){
 }
 
 extern "C" size_t get_output_size(size_t input_size, int operation_type){
+    (void)operation_type;
     return input_size;
 }
 
 extern "C" int encrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
+    (void)key;
     MutBuffer& out = *output;
     if (out.size < input.size) return 1;
     for (size_t i = 0; i < input.size; ++i){
@@ -23,4 +25,9 @@ extern "C" int encrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
 
 extern "C" int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
     return encrypt(key, input, output);
+}
+
+extern "C" int generate_key(MutBuffer* key) {
+    (void)key;
+    return 0;
 }
