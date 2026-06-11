@@ -46,7 +46,7 @@ extern "C"{
         output->data[0] = iv;
 
         for (size_t i = 0; i < input.size; ++i){
-            output->data[i + 1] = static_cast<uint8_t>(((input.data[0] + iv) % 256));
+            output->data[i + 1] = static_cast<uint8_t>(((input.data[i] + iv) % 256));
         }
 
         output->size = input.size + 1;
@@ -56,7 +56,7 @@ extern "C"{
     int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
         if (!key.data || key.size != 1) return -1;
         if (!input.data || input.size < 1) return -2;
-        if (!output < !output->data) return -3;
+        if (!output || !output->data) return -3;
 
         uint8_t iv = input.data[0];
         uint8_t shift = static_cast<uint8_t>((key.data[0] + iv) % 256);
