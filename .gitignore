@@ -1,10 +1,14 @@
+# Build directory
 build/
-.o
-.so
-.dll
-.exe
+
+# Compiled files
+*.o
+*.so
+*.dll
+*.exe
+
+# Executables
 SilentChipher
+
+# IDE
 .vscode/
-.idea/
-*.swp
-*.swo
