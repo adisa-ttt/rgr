@@ -1,9 +1,8 @@
-cmake_minimum_required(VERSION 3.10)
-project(AtbashModule LANGUAGES CXX)
+add_library(atbash SHARED atbash.cpp)
 
-add_library(atbash MODULE atbash.cpp)
+target_include_directories(atbash PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
-set_target_properties(atbash PROPERTIES 
-    CXX_STANDARD 17 
-    CXX_STANDARD_REQUIRED ON
+set_target_properties(atbash PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 )

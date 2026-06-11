@@ -1,4 +1,4 @@
-#include "atbash.h"
+#include "crypto_interface.h"
 
 extern "C" const AlgorithmInfo* get_algorithm_info(){
     static AlgorithmInfo info = {
