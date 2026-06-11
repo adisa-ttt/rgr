@@ -1,0 +1,10 @@
+build/
+.o
+.so
+.dll
+.exe
+SilentChipher
+.vscode/
+.idea/
+*.swp
+*.swo
