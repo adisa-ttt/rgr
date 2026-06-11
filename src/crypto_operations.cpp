@@ -5,6 +5,8 @@
 #include <vector>
 using namespace std;
 
+namespace crypto_operations {
+
 vector<uint8_t> encrypt(void* handle, const std::vector<uint8_t>& key, const std::vector<uint8_t>& input){
     auto get_size = plugin_loader::get_symbol<size_t(*)(size_t, int)>(handle, "get_output_size");
     auto enc = plugin_loader::get_symbol<int(*)(ConstBuffer, ConstBuffer, MutBuffer*)>(handle, "encrypt");
@@ -23,7 +25,7 @@ vector<uint8_t> encrypt(void* handle, const std::vector<uint8_t>& key, const std
 
 vector<uint8_t> decrypt(void* handle, const std::vector<uint8_t>& key, const std::vector<uint8_t>& input){
     auto get_size = plugin_loader::get_symbol<size_t(*)(size_t, int)>(handle, "get_output_size");
-    auto dec = plugin_loader::get_symbol<int(*)(ConstBuffer, ConstBuffer, MutBuffer*)>(handle, "encrypt");
+    auto dec = plugin_loader::get_symbol<int(*)(ConstBuffer, ConstBuffer, MutBuffer*)>(handle, "decrypt");
 
     size_t out_size = get_size(input.size(), 2);
     vector<uint8_t> output(out_size);
@@ -35,4 +37,6 @@ vector<uint8_t> decrypt(void* handle, const std::vector<uint8_t>& key, const std
     int result = dec(key_buf, in_buf, &out_buf);
     if(result != 0) throw runtime_error("Ошибка расшифрования. Код: " + std::to_string(result));
     return output;
+}
+
 }
