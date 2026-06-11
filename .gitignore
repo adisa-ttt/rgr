@@ -2,3 +2,17 @@ atbash.h
 rsa.h
 atbash.h
 rsa.h
+# Build directory
+build/
+
+# Compiled files
+*.o
+*.so
+*.dll
+*.exe
+
+# Executables
+SilentChipher
+
+# IDE
+.vscode/
