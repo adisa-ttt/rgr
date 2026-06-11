@@ -2,10 +2,10 @@
 #include "plugin_loader.h"
 #include "key_manager.h"
 #include "io_manager.h"
+#include "crypto_operations.h"
 #include <iostream>
 #include <string>
 #include <vector>
-#include <dlfcn.h> 
 #include <cstring>
 using namespace std;
 
@@ -88,20 +88,43 @@ int main(int argc, char* argv[]){
         vector<uint8_t> key;
         if(gen_key){
             key = key_manager::generate_secure_key(info->key_size);
-            cout << "Ключ сгенерирован." << endl;}
+            cout << "Ключ сгенерирован." << endl;
             
             if(save_key){
                 string save_path = output_path.empty() ? "-" :output_path;
                 io_manager::write_binary_data(save_path, key);
             }
-        else{
+
+            secure_memory(key.data(), key.size());
+            plugin_loader::unload_plugin(handle);
+            return 0;
+
+        } else {
             string actual_key_path = key_path.empty() ? "-" : key_path;
             key = io_manager::read_binary_data(actual_key_path);
             cout << "Ключ прочитан." << endl;
         }
 
+        if (mode == "encrypt" || mode == "decrypt"){
+            vector<uint8_t> input_data = io_manager::read_binary_data(input_path);
+            vector<uint8_t> output_data;
+
+            if(mode == "encrypt"){
+                output_data = crypto_operations::encrypt(handle, key, input_data);
+            } else if (mode == "decrypt"){
+                output_data = crypto_operations::decrypt(handle, key, input_data);
+            } else throw runtime_error ("Ошибка: неизвестный режим работы программы.");
+
+            string out_path = output_path.empty() ? "-" : output_path;
+            io_manager::write_binary_data(out_path, output_data);
+
+            secure_memory(input_data.data(), input_data.size());
+            secure_memory(output_data.data(), output_data.size());
+        }
+        
         secure_memory(key.data(), key.size());
-        plugin_loader::unload_plugin(handle);
+            plugin_loader::unload_plugin(handle);
+
         } catch(const exception& mistake){
         cerr << "Ошибка: " << mistake.what() << endl;
         return 1;

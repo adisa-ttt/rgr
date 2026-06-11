@@ -35,9 +35,8 @@ namespace io_manager{
 
         vector<uint8_t> data(size);
 
-        if(size == 0) throw runtime_error ("Файл ключа" + path + "пуст.");
+        if(size == 0) throw runtime_error ("Файл " + path + " пуст.");
 
-        vector<uint8_t> data(size);
             if (!file.read(reinterpret_cast<char*>(data.data()), size)) throw runtime_error("Ошибка чтения файла ключа " + path + ".");
         return data;
     }
@@ -45,7 +44,7 @@ namespace io_manager{
     void write_binary_data(const string& path, const vector<uint8_t>& data){
         if (path == "-"){
             #ifdef _WIN32
-                _setmode(_fileno(stdin), _O_BINARY);
+                _setmode(_fileno(stdout), _O_BINARY);
             #endif
 
             cout.write(reinterpret_cast<const char*>(data.data()), data.size());

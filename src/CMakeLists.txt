@@ -1,6 +1,9 @@
 add_executable(SilentChipher
     main.cpp
-    plugin_loader.cpp)
+    plugin_loader.cpp
+    io_manager.cpp
+    key_manager.cpp
+    io_manager.cpp)
 
 target_include_directories(SilentChipher PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_include_directories(SilentChipher PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
