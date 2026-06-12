@@ -107,7 +107,24 @@ int main(int argc, char* argv[]){
 
         vector<uint8_t> key;
         if(gen_key){
-            key = key_manager::generate_secure_key(info->key_size);
+            key.resize(info->key_size);
+
+            if (info->key_size > 0) {
+                try {
+                    auto generate_plugin_key = plugin_loader::get_symbol<int(*)(MutBuffer*)>(handle, "generate_key");
+                    MutBuffer key_buf = {key.data(), key.size()};
+
+                    int result = generate_plugin_key(&key_buf);
+                    if (result != 0) {
+                        throw runtime_error("Ошибка генерации ключа. Код: " + to_string(result));
+                    }
+
+                    key.resize(key_buf.size);
+                } catch (const exception&) {
+                    key = key_manager::generate_secure_key(info->key_size);
+                }
+            }
+
             cout << "Ключ сгенерирован." << endl;
             
             if(save_key){
