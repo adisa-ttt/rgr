@@ -15,6 +15,12 @@ size_t get_output_size(size_t input_size, int operation_type) {
 
 static int validate_key(const uint8_t* data, size_t size) {
     if (size == 0) return 0;
+    while (size > 0) {
+        unsigned char c = data[size - 1];
+        if (c == ' ' || c == '\n' || c == '\r' || c == '\t') size--;
+        else break;
+    }
+    if (size == 0) return 0;
     for (size_t i = 0; i < size; i++)
         if (!isdigit((unsigned char)data[i])) return 0;
     return (int)size;
@@ -29,6 +35,7 @@ int encrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output) {
         int shift = key.data[i % key_len] - '0';
         output->data[i] = (uint8_t)((input.data[i] + shift) % 256);
     }
+    output->size = input.size;
     return 0;
 }
 
@@ -41,6 +48,7 @@ int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output) {
         int shift = key.data[i % key_len] - '0';
         output->data[i] = (uint8_t)((input.data[i] - shift + 256) % 256);
     }
+    output->size = input.size;
     return 0;
 }
 
