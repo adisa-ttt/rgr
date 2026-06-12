@@ -17,7 +17,8 @@ namespace plugin_loader{
             string lib_name = "lib" + algorithm_name + ".so";
             void* handle = dlopen(lib_name.c_str(), RTLD_NOW);
             if(!handle){
-                string error_message = dlerror() ? dlerror() : "";
+                const char* err = dlerror();
+                string error_message = err ? err : "неизвестная ошибка";
                 throw runtime_error("Не удалось загрузить библиотеку " + lib_name + ". Ошибка: " + error_message);
             }
             return handle;
