@@ -16,3 +16,16 @@ SilentChipher
 
 # IDE
 .vscode/
+build/
+*.so
+*.dll
+*.o
+*.a
+*.key
+test*.txt
+test*.enc
+test*.bin
+input.txt
+test_input.txt
+test_key.txt
+=

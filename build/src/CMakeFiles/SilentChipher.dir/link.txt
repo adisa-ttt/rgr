@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/SilentChipher.dir/main.cpp.o CMakeFiles/SilentChipher.dir/plugin_loader.cpp.o CMakeFiles/SilentChipher.dir/io_manager.cpp.o CMakeFiles/SilentChipher.dir/key_manager.cpp.o CMakeFiles/SilentChipher.dir/crypto_operations.cpp.o -o ../SilentChipher  -Wl,-rpath,/home/adiss/rgr/build -ldl 
