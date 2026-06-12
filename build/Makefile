@@ -130,30 +130,30 @@ SilentChipher/fast:
 .PHONY : SilentChipher/fast
 
 #=============================================================================
-# Target rules for targets named gronsfeld
+# Target rules for targets named caesar
 
 # Build rule for target.
-gronsfeld: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gronsfeld
-.PHONY : gronsfeld
+caesar: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 caesar
+.PHONY : caesar
 
 # fast build rule for target.
-gronsfeld/fast:
-	$(MAKE) $(MAKESILENT) -f libs/gronsfeld/CMakeFiles/gronsfeld.dir/build.make libs/gronsfeld/CMakeFiles/gronsfeld.dir/build
-.PHONY : gronsfeld/fast
+caesar/fast:
+	$(MAKE) $(MAKESILENT) -f libs/caesar/CMakeFiles/caesar.dir/build.make libs/caesar/CMakeFiles/caesar.dir/build
+.PHONY : caesar/fast
 
 #=============================================================================
-# Target rules for targets named scytale
+# Target rules for targets named vigenere
 
 # Build rule for target.
-scytale: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scytale
-.PHONY : scytale
+vigenere: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vigenere
+.PHONY : vigenere
 
 # fast build rule for target.
-scytale/fast:
-	$(MAKE) $(MAKESILENT) -f libs/scytale/CMakeFiles/scytale.dir/build.make libs/scytale/CMakeFiles/scytale.dir/build
-.PHONY : scytale/fast
+vigenere/fast:
+	$(MAKE) $(MAKESILENT) -f libs/vigenere/CMakeFiles/vigenere.dir/build.make libs/vigenere/CMakeFiles/vigenere.dir/build
+.PHONY : vigenere/fast
 
 # Help Target
 help:
@@ -164,8 +164,8 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... SilentChipher"
-	@echo "... gronsfeld"
-	@echo "... scytale"
+	@echo "... caesar"
+	@echo "... vigenere"
 .PHONY : help
 
 

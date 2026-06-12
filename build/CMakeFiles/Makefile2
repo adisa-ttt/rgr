@@ -65,68 +65,65 @@ CMAKE_BINARY_DIR = /home/adiss/rgr/build
 # The main recursive "all" target.
 all: src/all
 all: libs/all
-all: test/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: src/preinstall
 preinstall: libs/preinstall
-preinstall: test/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: src/clean
 clean: libs/clean
-clean: test/clean
 .PHONY : clean
 
 #=============================================================================
 # Directory level rules for directory libs
 
 # Recursive "all" directory target.
-libs/all: libs/gronsfeld/all
-libs/all: libs/scytale/all
+libs/all: libs/caesar/all
+libs/all: libs/vigenere/all
 .PHONY : libs/all
 
 # Recursive "preinstall" directory target.
-libs/preinstall: libs/gronsfeld/preinstall
-libs/preinstall: libs/scytale/preinstall
+libs/preinstall: libs/caesar/preinstall
+libs/preinstall: libs/vigenere/preinstall
 .PHONY : libs/preinstall
 
 # Recursive "clean" directory target.
-libs/clean: libs/gronsfeld/clean
-libs/clean: libs/scytale/clean
+libs/clean: libs/caesar/clean
+libs/clean: libs/vigenere/clean
 .PHONY : libs/clean
 
 #=============================================================================
-# Directory level rules for directory libs/gronsfeld
+# Directory level rules for directory libs/caesar
 
 # Recursive "all" directory target.
-libs/gronsfeld/all: libs/gronsfeld/CMakeFiles/gronsfeld.dir/all
-.PHONY : libs/gronsfeld/all
+libs/caesar/all: libs/caesar/CMakeFiles/caesar.dir/all
+.PHONY : libs/caesar/all
 
 # Recursive "preinstall" directory target.
-libs/gronsfeld/preinstall:
-.PHONY : libs/gronsfeld/preinstall
+libs/caesar/preinstall:
+.PHONY : libs/caesar/preinstall
 
 # Recursive "clean" directory target.
-libs/gronsfeld/clean: libs/gronsfeld/CMakeFiles/gronsfeld.dir/clean
-.PHONY : libs/gronsfeld/clean
+libs/caesar/clean: libs/caesar/CMakeFiles/caesar.dir/clean
+.PHONY : libs/caesar/clean
 
 #=============================================================================
-# Directory level rules for directory libs/scytale
+# Directory level rules for directory libs/vigenere
 
 # Recursive "all" directory target.
-libs/scytale/all: libs/scytale/CMakeFiles/scytale.dir/all
-.PHONY : libs/scytale/all
+libs/vigenere/all: libs/vigenere/CMakeFiles/vigenere.dir/all
+.PHONY : libs/vigenere/all
 
 # Recursive "preinstall" directory target.
-libs/scytale/preinstall:
-.PHONY : libs/scytale/preinstall
+libs/vigenere/preinstall:
+.PHONY : libs/vigenere/preinstall
 
 # Recursive "clean" directory target.
-libs/scytale/clean: libs/scytale/CMakeFiles/scytale.dir/clean
-.PHONY : libs/scytale/clean
+libs/vigenere/clean: libs/vigenere/CMakeFiles/vigenere.dir/clean
+.PHONY : libs/vigenere/clean
 
 #=============================================================================
 # Directory level rules for directory src
@@ -142,21 +139,6 @@ src/preinstall:
 # Recursive "clean" directory target.
 src/clean: src/CMakeFiles/SilentChipher.dir/clean
 .PHONY : src/clean
-
-#=============================================================================
-# Directory level rules for directory test
-
-# Recursive "all" directory target.
-test/all:
-.PHONY : test/all
-
-# Recursive "preinstall" directory target.
-test/preinstall:
-.PHONY : test/preinstall
-
-# Recursive "clean" directory target.
-test/clean:
-.PHONY : test/clean
 
 #=============================================================================
 # Target rules for target src/CMakeFiles/SilentChipher.dir
@@ -185,56 +167,56 @@ src/CMakeFiles/SilentChipher.dir/clean:
 .PHONY : src/CMakeFiles/SilentChipher.dir/clean
 
 #=============================================================================
-# Target rules for target libs/gronsfeld/CMakeFiles/gronsfeld.dir
+# Target rules for target libs/caesar/CMakeFiles/caesar.dir
 
 # All Build rule for target.
-libs/gronsfeld/CMakeFiles/gronsfeld.dir/all:
-	$(MAKE) $(MAKESILENT) -f libs/gronsfeld/CMakeFiles/gronsfeld.dir/build.make libs/gronsfeld/CMakeFiles/gronsfeld.dir/depend
-	$(MAKE) $(MAKESILENT) -f libs/gronsfeld/CMakeFiles/gronsfeld.dir/build.make libs/gronsfeld/CMakeFiles/gronsfeld.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=7,8 "Built target gronsfeld"
-.PHONY : libs/gronsfeld/CMakeFiles/gronsfeld.dir/all
+libs/caesar/CMakeFiles/caesar.dir/all:
+	$(MAKE) $(MAKESILENT) -f libs/caesar/CMakeFiles/caesar.dir/build.make libs/caesar/CMakeFiles/caesar.dir/depend
+	$(MAKE) $(MAKESILENT) -f libs/caesar/CMakeFiles/caesar.dir/build.make libs/caesar/CMakeFiles/caesar.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=7,8 "Built target caesar"
+.PHONY : libs/caesar/CMakeFiles/caesar.dir/all
 
 # Build rule for subdir invocation for target.
-libs/gronsfeld/CMakeFiles/gronsfeld.dir/rule: cmake_check_build_system
+libs/caesar/CMakeFiles/caesar.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/gronsfeld/CMakeFiles/gronsfeld.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/caesar/CMakeFiles/caesar.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 0
-.PHONY : libs/gronsfeld/CMakeFiles/gronsfeld.dir/rule
+.PHONY : libs/caesar/CMakeFiles/caesar.dir/rule
 
 # Convenience name for target.
-gronsfeld: libs/gronsfeld/CMakeFiles/gronsfeld.dir/rule
-.PHONY : gronsfeld
+caesar: libs/caesar/CMakeFiles/caesar.dir/rule
+.PHONY : caesar
 
 # clean rule for target.
-libs/gronsfeld/CMakeFiles/gronsfeld.dir/clean:
-	$(MAKE) $(MAKESILENT) -f libs/gronsfeld/CMakeFiles/gronsfeld.dir/build.make libs/gronsfeld/CMakeFiles/gronsfeld.dir/clean
-.PHONY : libs/gronsfeld/CMakeFiles/gronsfeld.dir/clean
+libs/caesar/CMakeFiles/caesar.dir/clean:
+	$(MAKE) $(MAKESILENT) -f libs/caesar/CMakeFiles/caesar.dir/build.make libs/caesar/CMakeFiles/caesar.dir/clean
+.PHONY : libs/caesar/CMakeFiles/caesar.dir/clean
 
 #=============================================================================
-# Target rules for target libs/scytale/CMakeFiles/scytale.dir
+# Target rules for target libs/vigenere/CMakeFiles/vigenere.dir
 
 # All Build rule for target.
-libs/scytale/CMakeFiles/scytale.dir/all:
-	$(MAKE) $(MAKESILENT) -f libs/scytale/CMakeFiles/scytale.dir/build.make libs/scytale/CMakeFiles/scytale.dir/depend
-	$(MAKE) $(MAKESILENT) -f libs/scytale/CMakeFiles/scytale.dir/build.make libs/scytale/CMakeFiles/scytale.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=9,10 "Built target scytale"
-.PHONY : libs/scytale/CMakeFiles/scytale.dir/all
+libs/vigenere/CMakeFiles/vigenere.dir/all:
+	$(MAKE) $(MAKESILENT) -f libs/vigenere/CMakeFiles/vigenere.dir/build.make libs/vigenere/CMakeFiles/vigenere.dir/depend
+	$(MAKE) $(MAKESILENT) -f libs/vigenere/CMakeFiles/vigenere.dir/build.make libs/vigenere/CMakeFiles/vigenere.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=9,10 "Built target vigenere"
+.PHONY : libs/vigenere/CMakeFiles/vigenere.dir/all
 
 # Build rule for subdir invocation for target.
-libs/scytale/CMakeFiles/scytale.dir/rule: cmake_check_build_system
+libs/vigenere/CMakeFiles/vigenere.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/scytale/CMakeFiles/scytale.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/vigenere/CMakeFiles/vigenere.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 0
-.PHONY : libs/scytale/CMakeFiles/scytale.dir/rule
+.PHONY : libs/vigenere/CMakeFiles/vigenere.dir/rule
 
 # Convenience name for target.
-scytale: libs/scytale/CMakeFiles/scytale.dir/rule
-.PHONY : scytale
+vigenere: libs/vigenere/CMakeFiles/vigenere.dir/rule
+.PHONY : vigenere
 
 # clean rule for target.
-libs/scytale/CMakeFiles/scytale.dir/clean:
-	$(MAKE) $(MAKESILENT) -f libs/scytale/CMakeFiles/scytale.dir/build.make libs/scytale/CMakeFiles/scytale.dir/clean
-.PHONY : libs/scytale/CMakeFiles/scytale.dir/clean
+libs/vigenere/CMakeFiles/vigenere.dir/clean:
+	$(MAKE) $(MAKESILENT) -f libs/vigenere/CMakeFiles/vigenere.dir/build.make libs/vigenere/CMakeFiles/vigenere.dir/clean
+.PHONY : libs/vigenere/CMakeFiles/vigenere.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

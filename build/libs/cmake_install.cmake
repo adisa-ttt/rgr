@@ -44,8 +44,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/adiss/rgr/build/libs/gronsfeld/cmake_install.cmake")
-  include("/home/adiss/rgr/build/libs/scytale/cmake_install.cmake")
+  include("/home/adiss/rgr/build/libs/caesar/cmake_install.cmake")
+  include("/home/adiss/rgr/build/libs/vigenere/cmake_install.cmake")
 
 endif()
 
