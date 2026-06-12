@@ -111,14 +111,16 @@ int main(int argc, char* argv[]){
             cout << "Ключ сгенерирован." << endl;
             
             if(save_key){
-                string save_path = output_path.empty() ? "-" :output_path;
+                string save_path = output_path.empty() ? "-" : output_path;
                 io_manager::write_binary_data(save_path, key);
             }
 
             secure_memory(key.data(), key.size());
             plugin_loader::unload_plugin(handle);
             return 0;
-
+        } else if (info->key_size == 0) {
+            key.clear();
+            cout << "Ключ не требуется для этого алгоритма." << endl;
         } else {
             string actual_key_path = key_path.empty() ? "-" : key_path;
             key = io_manager::read_binary_data(actual_key_path);

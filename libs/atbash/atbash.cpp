@@ -16,7 +16,7 @@ extern "C" size_t get_output_size(size_t input_size, int operation_type){
 extern "C" int encrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
     (void)key;
     MutBuffer& out = *output;
-    if (out.size < input.size) return 1;
+    if (!input.data || !out.data || out.size < input.size) return 1;
     for (size_t i = 0; i < input.size; ++i){
         out.data[i] = 255 - input.data[i];
     }
