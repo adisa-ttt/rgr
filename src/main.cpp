@@ -106,7 +106,7 @@ int main(int argc, char* argv[]){
         cout << "Загружен алгоритм: " << info->algorithm_name << ", его размер ключа: " << info->key_size << endl;
 
         vector<uint8_t> key;
-        if(gen_key){
+        if(gen_key || mode == "generate-key"){
             key.resize(info->key_size);
 
             if (info->key_size > 0) {
