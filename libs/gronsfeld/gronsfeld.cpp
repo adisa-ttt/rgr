@@ -1,10 +1,10 @@
 #include "../include/crypto_interface.h"
 #include <cctype>
-
+#include <cstdlib>
 extern "C" {
 
 const AlgorithmInfo* get_algorithm_info() {
-    static AlgorithmInfo info = {"Gronsfeld", 0};
+    static AlgorithmInfo info = {"Gronsfeld", 1};
     return &info;
 }
 
@@ -55,6 +55,15 @@ int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output) {
 int encrypt_with_iv(ConstBuffer key, ConstBuffer iv, ConstBuffer input, MutBuffer* output) {
     (void)iv;
     return encrypt(key, input, output);
+}
+int generate_key(MutBuffer* key) {
+    if (!key || !key->data || key->size == 0) return 1;
+
+    for (size_t i = 0; i < key->size; i++) {
+        key->data[i] = '0' + (rand() % 10);
+    }
+
+    return 0;
 }
 
 }
