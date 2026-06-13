@@ -65,35 +65,65 @@ CMAKE_BINARY_DIR = /home/adiss/rgr/build
 # The main recursive "all" target.
 all: src/all
 all: libs/all
+all: test/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: src/preinstall
 preinstall: libs/preinstall
+preinstall: test/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: src/clean
 clean: libs/clean
+clean: test/clean
 .PHONY : clean
 
 #=============================================================================
 # Directory level rules for directory libs
 
 # Recursive "all" directory target.
+libs/all: libs/gronsfeld/all
+libs/all: libs/scytale/all
+libs/all: libs/atbash/all
+libs/all: libs/rsa/all
 libs/all: libs/caesar/all
 libs/all: libs/vigenere/all
 .PHONY : libs/all
 
 # Recursive "preinstall" directory target.
+libs/preinstall: libs/gronsfeld/preinstall
+libs/preinstall: libs/scytale/preinstall
+libs/preinstall: libs/atbash/preinstall
+libs/preinstall: libs/rsa/preinstall
 libs/preinstall: libs/caesar/preinstall
 libs/preinstall: libs/vigenere/preinstall
 .PHONY : libs/preinstall
 
 # Recursive "clean" directory target.
+libs/clean: libs/gronsfeld/clean
+libs/clean: libs/scytale/clean
+libs/clean: libs/atbash/clean
+libs/clean: libs/rsa/clean
 libs/clean: libs/caesar/clean
 libs/clean: libs/vigenere/clean
 .PHONY : libs/clean
+
+#=============================================================================
+# Directory level rules for directory libs/atbash
+
+# Recursive "all" directory target.
+libs/atbash/all: libs/atbash/CMakeFiles/atbash.dir/all
+.PHONY : libs/atbash/all
+
+# Recursive "preinstall" directory target.
+libs/atbash/preinstall:
+.PHONY : libs/atbash/preinstall
+
+# Recursive "clean" directory target.
+libs/atbash/clean: libs/atbash/CMakeFiles/atbash.dir/clean
+.PHONY : libs/atbash/clean
 
 #=============================================================================
 # Directory level rules for directory libs/caesar
@@ -109,6 +139,51 @@ libs/caesar/preinstall:
 # Recursive "clean" directory target.
 libs/caesar/clean: libs/caesar/CMakeFiles/caesar.dir/clean
 .PHONY : libs/caesar/clean
+
+#=============================================================================
+# Directory level rules for directory libs/gronsfeld
+
+# Recursive "all" directory target.
+libs/gronsfeld/all: libs/gronsfeld/CMakeFiles/gronsfeld.dir/all
+.PHONY : libs/gronsfeld/all
+
+# Recursive "preinstall" directory target.
+libs/gronsfeld/preinstall:
+.PHONY : libs/gronsfeld/preinstall
+
+# Recursive "clean" directory target.
+libs/gronsfeld/clean: libs/gronsfeld/CMakeFiles/gronsfeld.dir/clean
+.PHONY : libs/gronsfeld/clean
+
+#=============================================================================
+# Directory level rules for directory libs/rsa
+
+# Recursive "all" directory target.
+libs/rsa/all: libs/rsa/CMakeFiles/rsa.dir/all
+.PHONY : libs/rsa/all
+
+# Recursive "preinstall" directory target.
+libs/rsa/preinstall:
+.PHONY : libs/rsa/preinstall
+
+# Recursive "clean" directory target.
+libs/rsa/clean: libs/rsa/CMakeFiles/rsa.dir/clean
+.PHONY : libs/rsa/clean
+
+#=============================================================================
+# Directory level rules for directory libs/scytale
+
+# Recursive "all" directory target.
+libs/scytale/all: libs/scytale/CMakeFiles/scytale.dir/all
+.PHONY : libs/scytale/all
+
+# Recursive "preinstall" directory target.
+libs/scytale/preinstall:
+.PHONY : libs/scytale/preinstall
+
+# Recursive "clean" directory target.
+libs/scytale/clean: libs/scytale/CMakeFiles/scytale.dir/clean
+.PHONY : libs/scytale/clean
 
 #=============================================================================
 # Directory level rules for directory libs/vigenere
@@ -141,6 +216,21 @@ src/clean: src/CMakeFiles/SilentChipher.dir/clean
 .PHONY : src/clean
 
 #=============================================================================
+# Directory level rules for directory test
+
+# Recursive "all" directory target.
+test/all: test/CMakeFiles/crypto_tests.dir/all
+.PHONY : test/all
+
+# Recursive "preinstall" directory target.
+test/preinstall:
+.PHONY : test/preinstall
+
+# Recursive "clean" directory target.
+test/clean: test/CMakeFiles/crypto_tests.dir/clean
+.PHONY : test/clean
+
+#=============================================================================
 # Target rules for target src/CMakeFiles/SilentChipher.dir
 
 # All Build rule for target.
@@ -167,13 +257,117 @@ src/CMakeFiles/SilentChipher.dir/clean:
 .PHONY : src/CMakeFiles/SilentChipher.dir/clean
 
 #=============================================================================
+# Target rules for target libs/gronsfeld/CMakeFiles/gronsfeld.dir
+
+# All Build rule for target.
+libs/gronsfeld/CMakeFiles/gronsfeld.dir/all:
+	$(MAKE) $(MAKESILENT) -f libs/gronsfeld/CMakeFiles/gronsfeld.dir/build.make libs/gronsfeld/CMakeFiles/gronsfeld.dir/depend
+	$(MAKE) $(MAKESILENT) -f libs/gronsfeld/CMakeFiles/gronsfeld.dir/build.make libs/gronsfeld/CMakeFiles/gronsfeld.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=15,16 "Built target gronsfeld"
+.PHONY : libs/gronsfeld/CMakeFiles/gronsfeld.dir/all
+
+# Build rule for subdir invocation for target.
+libs/gronsfeld/CMakeFiles/gronsfeld.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/gronsfeld/CMakeFiles/gronsfeld.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 0
+.PHONY : libs/gronsfeld/CMakeFiles/gronsfeld.dir/rule
+
+# Convenience name for target.
+gronsfeld: libs/gronsfeld/CMakeFiles/gronsfeld.dir/rule
+.PHONY : gronsfeld
+
+# clean rule for target.
+libs/gronsfeld/CMakeFiles/gronsfeld.dir/clean:
+	$(MAKE) $(MAKESILENT) -f libs/gronsfeld/CMakeFiles/gronsfeld.dir/build.make libs/gronsfeld/CMakeFiles/gronsfeld.dir/clean
+.PHONY : libs/gronsfeld/CMakeFiles/gronsfeld.dir/clean
+
+#=============================================================================
+# Target rules for target libs/scytale/CMakeFiles/scytale.dir
+
+# All Build rule for target.
+libs/scytale/CMakeFiles/scytale.dir/all:
+	$(MAKE) $(MAKESILENT) -f libs/scytale/CMakeFiles/scytale.dir/build.make libs/scytale/CMakeFiles/scytale.dir/depend
+	$(MAKE) $(MAKESILENT) -f libs/scytale/CMakeFiles/scytale.dir/build.make libs/scytale/CMakeFiles/scytale.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=19,20 "Built target scytale"
+.PHONY : libs/scytale/CMakeFiles/scytale.dir/all
+
+# Build rule for subdir invocation for target.
+libs/scytale/CMakeFiles/scytale.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/scytale/CMakeFiles/scytale.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 0
+.PHONY : libs/scytale/CMakeFiles/scytale.dir/rule
+
+# Convenience name for target.
+scytale: libs/scytale/CMakeFiles/scytale.dir/rule
+.PHONY : scytale
+
+# clean rule for target.
+libs/scytale/CMakeFiles/scytale.dir/clean:
+	$(MAKE) $(MAKESILENT) -f libs/scytale/CMakeFiles/scytale.dir/build.make libs/scytale/CMakeFiles/scytale.dir/clean
+.PHONY : libs/scytale/CMakeFiles/scytale.dir/clean
+
+#=============================================================================
+# Target rules for target libs/atbash/CMakeFiles/atbash.dir
+
+# All Build rule for target.
+libs/atbash/CMakeFiles/atbash.dir/all:
+	$(MAKE) $(MAKESILENT) -f libs/atbash/CMakeFiles/atbash.dir/build.make libs/atbash/CMakeFiles/atbash.dir/depend
+	$(MAKE) $(MAKESILENT) -f libs/atbash/CMakeFiles/atbash.dir/build.make libs/atbash/CMakeFiles/atbash.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=7,8 "Built target atbash"
+.PHONY : libs/atbash/CMakeFiles/atbash.dir/all
+
+# Build rule for subdir invocation for target.
+libs/atbash/CMakeFiles/atbash.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/atbash/CMakeFiles/atbash.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 0
+.PHONY : libs/atbash/CMakeFiles/atbash.dir/rule
+
+# Convenience name for target.
+atbash: libs/atbash/CMakeFiles/atbash.dir/rule
+.PHONY : atbash
+
+# clean rule for target.
+libs/atbash/CMakeFiles/atbash.dir/clean:
+	$(MAKE) $(MAKESILENT) -f libs/atbash/CMakeFiles/atbash.dir/build.make libs/atbash/CMakeFiles/atbash.dir/clean
+.PHONY : libs/atbash/CMakeFiles/atbash.dir/clean
+
+#=============================================================================
+# Target rules for target libs/rsa/CMakeFiles/rsa.dir
+
+# All Build rule for target.
+libs/rsa/CMakeFiles/rsa.dir/all:
+	$(MAKE) $(MAKESILENT) -f libs/rsa/CMakeFiles/rsa.dir/build.make libs/rsa/CMakeFiles/rsa.dir/depend
+	$(MAKE) $(MAKESILENT) -f libs/rsa/CMakeFiles/rsa.dir/build.make libs/rsa/CMakeFiles/rsa.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=17,18 "Built target rsa"
+.PHONY : libs/rsa/CMakeFiles/rsa.dir/all
+
+# Build rule for subdir invocation for target.
+libs/rsa/CMakeFiles/rsa.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/rsa/CMakeFiles/rsa.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 0
+.PHONY : libs/rsa/CMakeFiles/rsa.dir/rule
+
+# Convenience name for target.
+rsa: libs/rsa/CMakeFiles/rsa.dir/rule
+.PHONY : rsa
+
+# clean rule for target.
+libs/rsa/CMakeFiles/rsa.dir/clean:
+	$(MAKE) $(MAKESILENT) -f libs/rsa/CMakeFiles/rsa.dir/build.make libs/rsa/CMakeFiles/rsa.dir/clean
+.PHONY : libs/rsa/CMakeFiles/rsa.dir/clean
+
+#=============================================================================
 # Target rules for target libs/caesar/CMakeFiles/caesar.dir
 
 # All Build rule for target.
 libs/caesar/CMakeFiles/caesar.dir/all:
 	$(MAKE) $(MAKESILENT) -f libs/caesar/CMakeFiles/caesar.dir/build.make libs/caesar/CMakeFiles/caesar.dir/depend
 	$(MAKE) $(MAKESILENT) -f libs/caesar/CMakeFiles/caesar.dir/build.make libs/caesar/CMakeFiles/caesar.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=7,8 "Built target caesar"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=9,10 "Built target caesar"
 .PHONY : libs/caesar/CMakeFiles/caesar.dir/all
 
 # Build rule for subdir invocation for target.
@@ -199,7 +393,7 @@ libs/caesar/CMakeFiles/caesar.dir/clean:
 libs/vigenere/CMakeFiles/vigenere.dir/all:
 	$(MAKE) $(MAKESILENT) -f libs/vigenere/CMakeFiles/vigenere.dir/build.make libs/vigenere/CMakeFiles/vigenere.dir/depend
 	$(MAKE) $(MAKESILENT) -f libs/vigenere/CMakeFiles/vigenere.dir/build.make libs/vigenere/CMakeFiles/vigenere.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=9,10 "Built target vigenere"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=21,22 "Built target vigenere"
 .PHONY : libs/vigenere/CMakeFiles/vigenere.dir/all
 
 # Build rule for subdir invocation for target.
@@ -217,6 +411,32 @@ vigenere: libs/vigenere/CMakeFiles/vigenere.dir/rule
 libs/vigenere/CMakeFiles/vigenere.dir/clean:
 	$(MAKE) $(MAKESILENT) -f libs/vigenere/CMakeFiles/vigenere.dir/build.make libs/vigenere/CMakeFiles/vigenere.dir/clean
 .PHONY : libs/vigenere/CMakeFiles/vigenere.dir/clean
+
+#=============================================================================
+# Target rules for target test/CMakeFiles/crypto_tests.dir
+
+# All Build rule for target.
+test/CMakeFiles/crypto_tests.dir/all:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/crypto_tests.dir/build.make test/CMakeFiles/crypto_tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/crypto_tests.dir/build.make test/CMakeFiles/crypto_tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/adiss/rgr/build/CMakeFiles --progress-num=11,12,13,14 "Built target crypto_tests"
+.PHONY : test/CMakeFiles/crypto_tests.dir/all
+
+# Build rule for subdir invocation for target.
+test/CMakeFiles/crypto_tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/crypto_tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adiss/rgr/build/CMakeFiles 0
+.PHONY : test/CMakeFiles/crypto_tests.dir/rule
+
+# Convenience name for target.
+crypto_tests: test/CMakeFiles/crypto_tests.dir/rule
+.PHONY : crypto_tests
+
+# clean rule for target.
+test/CMakeFiles/crypto_tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/crypto_tests.dir/build.make test/CMakeFiles/crypto_tests.dir/clean
+.PHONY : test/CMakeFiles/crypto_tests.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
