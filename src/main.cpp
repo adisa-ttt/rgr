@@ -17,7 +17,7 @@ void print_help(){
 
     cout << "           Справочная сводка по SilentChipher\n" 
         << "Флаги:\n" 
-        << "    -a, --algorithm <название_алгоритма>   Выбор алгоритма для шифрования: skytale, gronsfeld, atbash, rsa, caesar, vigenere.\n" 
+        << "    -a, --algorithm <название_алгоритма>   Выбор алгоритма для шифрования: scytale, gronsfeld, atbash, rsa, caesar, vigenere.\n" 
         << "    -m, --mode <режим_программы>           Выбор режима программы: encrypt; descrypt; generate-key.\n" 
         << "    -k, --key <название_файла>             Ввод пути к файлу ключа\n"
         << "    -i, --input <название_файла>           Выбор файла для шифрования, или '-' для ввода с консоли\n"
@@ -79,14 +79,14 @@ int main(int argc, char* argv[]){
     }
 
     try{
-        vector<string> supported_algos = {"caesar", "vigenere", "atbash", "rsa", "skytale", "gronsfeld"};
+        vector<string> supported_algos = {"caesar", "vigenere", "atbash", "rsa", "scytale", "gronsfeld"};
         bool is_supported = false;
         for (const auto& a : supported_algos) {
             if (a == algo) { 
                 is_supported = true; 
                 break; }
         }
-        if (!is_supported) throw runtime_error("Неподдерживаемый алгоритм: " + algo + ". Доступные: skytale, gronsfeld, atbash, rsa, caesar, vigenere.");
+        if (!is_supported) throw runtime_error("Неподдерживаемый алгоритм: " + algo + ". Доступные: scytale, gronsfeld, atbash, rsa, caesar, vigenere.");
 
         void* handle = plugin_loader::load_plugin(algo);
         if (!handle) {
