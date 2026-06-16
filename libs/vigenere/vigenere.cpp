@@ -3,7 +3,7 @@ using namespace std;
 
 extern "C"{
     const AlgorithmInfo* get_algorithm_info(){
-        static const AlgorithmInfo info = {"vigenere", 16};
+        static const AlgorithmInfo info = {"vigenere", 1};
         return &info;
     }
 
@@ -13,26 +13,26 @@ extern "C"{
     }
 
     int encrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
-        if (!key.data || key.size != 16) return 1;
+        if (!key.data || key.size == 0) return 1;
         if (!input.data && input.size > 0) return 2;
         if (!output || (input.size > 0 && !output->data)) return 3;
         if (output->size < input.size) return 4;
-
+        
         for (size_t i = 0; i < input.size; ++i){
-            output->data[i] = static_cast<uint8_t>((input.data[i] + key.data[i % 16]) % 256);
+            output->data[i] = static_cast<uint8_t>((input.data[i] + key.data[i % key.size]) % 256);
         }
         output->size = input.size;
         return 0;
     }
 
     int decrypt(ConstBuffer key, ConstBuffer input, MutBuffer* output){
-        if (!key.data || key.size != 16) return 1;
+        if (!key.data || key.size == 0) return 1;
         if (!input.data && input.size > 0) return 2;
         if (!output || (input.size > 0 && !output->data)) return 3;
         if (output->size < input.size) return 4;
-
+        
         for (size_t i = 0; i < input.size; ++i){
-            output->data[i] = static_cast<uint8_t>((input.data[i] - key.data[i % 16] + 256) % 256);
+            output->data[i] = static_cast<uint8_t>((input.data[i] - key.data[i % key.size] + 256) % 256);
         }
         output->size = input.size;
         return 0;
